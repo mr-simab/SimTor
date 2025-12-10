@@ -100,8 +100,8 @@ Workflow Overview
 
 FILE STRUCTURE
 
-SimTor/  
- ├── simtor.sh
+SimTor/     
+ ├── simtor.sh      
  └── README.md
 
 -------------------------------------------------------------------------------
