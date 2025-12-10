@@ -1,6 +1,6 @@
-# SimTor - Wireless Network Deauthentication Simulator
+# SimTor : Wireless Network Deauthentication Simulator
 
-SimTor is an automated wireless security testing script that handles WiFi scanning, MAC address randomization, and multi‑terminal deauthentication for educational and authorized penetration testing purposes only.
+SimTor is an automated wireless security testing script that handles WiFi scanning, MAC address randomization, and multi‑terminal deauthentication for educational and penetration testing purposes.
 
 -------------------------------------------------------------------------------
 
