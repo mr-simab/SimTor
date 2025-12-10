@@ -46,7 +46,7 @@ Hardware:
 
 INSTALLATION
 
-git clone https://github.com/YourName/SimTor.git
+git clone https://github.com/mr-simab/SimTor.git
 cd SimTor
 chmod +x simtor.sh
 
@@ -98,6 +98,23 @@ Workflow Overview
 
 -------------------------------------------------------------------------------
 
+FILE STRUCTURE
+
+SimTor/
+ ├── simtor.sh
+ └── README.md
+
+-------------------------------------------------------------------------------
+
+RECOMMENDED BEFORE RUNNING
+sudo systemctl stop NetworkManager
+sudo rfkill unblock all
+
+RECOMMENDED AFTER FINISHING
+
+sudo systemctl start NetworkManager
+
+-------------------------------------------------------------------------------
 AUTHOR
 
 SimTor Script by: MrSima
