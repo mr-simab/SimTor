@@ -107,7 +107,6 @@ SimTor/
 -------------------------------------------------------------------------------
 
 RECOMMENDED BEFORE RUNNING
-
 sudo systemctl stop NetworkManager
 sudo rfkill unblock all
 
