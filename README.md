@@ -58,7 +58,7 @@ sudo ./simtor.sh
 
 -------------------------------------------------------------------------------
 
-WORKFLOW OVERVIEW
+Workflow Overview
 
 1. Initial Setup
    - Displays header
