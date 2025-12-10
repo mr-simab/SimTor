@@ -98,24 +98,6 @@ Workflow Overview
 
 -------------------------------------------------------------------------------
 
-FILE STRUCTURE
-
-SimTor/
- ├── simtor.sh
- └── README.md
-
--------------------------------------------------------------------------------
-
-RECOMMENDED BEFORE RUNNING
-sudo systemctl stop NetworkManager
-sudo rfkill unblock all
-
-RECOMMENDED AFTER FINISHING
-
-sudo systemctl start NetworkManager
-
--------------------------------------------------------------------------------
-
 AUTHOR
 
 SimTor Script by: MrSima
