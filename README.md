@@ -4,7 +4,7 @@ SimTor is an automated wireless security testing script that handles WiFi scanni
 
 -------------------------------------------------------------------------------
 
-LEGAL DISCLAIMER
+LEGAL DISCLAIMER    
 Use this tool only on networks you own or have explicit written permission to test.
 Unauthorized WiFi attacks are illegal. The author is not responsible for misuse.
 
