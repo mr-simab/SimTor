@@ -4,6 +4,8 @@ SimTor is an automated wireless security testing script that handles WiFi scanni
 MAC address randomization, and multi‑terminal deauthentication for educational and 
 penetration testing purposes.  
 
+![](assets/SimTor.png)
+
 -------------------------------------------------------------------------------
 [+] LEGAL DISCLAIMER  
 -------------------------------------------------------------------------------
